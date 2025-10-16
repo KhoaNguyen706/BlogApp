@@ -2,7 +2,10 @@ import mongoose from "mongoose";
 
 const BlogSchema = new mongoose.Schema(
     {
-        
+        UserId:{
+            type: String,
+            require:true,
+        },
         title:{
             type: String,
             require:true

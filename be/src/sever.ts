@@ -2,6 +2,7 @@ import express   from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db";
 import BlogRoute from "./routes/BlogRoute";
+import authRoute from "./authenication/authRoute";
 dotenv.config();
 
 const app = express();
@@ -9,6 +10,7 @@ const PORT = process.env.PORT || 5001;
 
 connectDB();
 app.use(express.json())
+app.use("/api/v1/auth",authRoute)
 app.use("/api/v1/posts",BlogRoute)
 
 
