@@ -7,12 +7,12 @@ import {
     deleateABlog,
     filterbyTerm
 } from "../controller/blogController";
-import { authoMiddleware } from "../authenication/authoMiddleware";
+
 const BlogRoute = express.Router();
 BlogRoute.get("/search",filterbyTerm)
 BlogRoute.get("/:id",getABlog);
 BlogRoute.get("/",getAllBlog);
-BlogRoute.post("/",authoMiddleware,createABlog);
+BlogRoute.post("/",createABlog);
 BlogRoute.put("/:id",updateABlog);
 BlogRoute.delete("/:id",deleateABlog);
 

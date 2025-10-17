@@ -11,7 +11,7 @@ declare global {
 }
 
 export async function authoMiddleware(req:Request,res:Response,next:NextFunction) {
-    console.log("Autho Midlleware call")
+    
     
     const token = req.headers.authorization?.replace("Bearer ","");
 
@@ -21,13 +21,13 @@ export async function authoMiddleware(req:Request,res:Response,next:NextFunction
         if (!JWT_Key) {
             return res.status(500).json({ message: 'JWT secret key is not configured' });
         }
-        const verify = jwt.verify(token, JWT_Key) as jwt.JwtPayload;
-        if(!verify) return res.status(401).json({message:"Unauthorized"})
+        const verifiedUser = jwt.verify(token, JWT_Key) as jwt.JwtPayload;
+        if(!verifiedUser) return res.status(401).json({message:"Unauthorized"})
         
-        req.user = verify
-            
+        req.user = verifiedUser  
+        next();  
     } catch (error) {
         return res.status(401).json({ message: 'Invalid token' });
     }
-    next();
+    
 }
